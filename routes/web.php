@@ -19,6 +19,21 @@ Route::get('/panier', 'ClientController@panier');
 Route::get('/paiement', 'ClientController@paiement');
 Route::get('/client_login', 'ClientController@client_login');
 Route::get('/signup', 'ClientController@signup');
+Route::get('/select_categorie/{name}', 'ClientController@select_categorie');
+Route::get('/ajouter_panier/{id}', 'ClientController@ajouter_panier');
+Route::post('/modifier_qty/{id}', 'ClientController@modifier_qty');
+Route::get('/retirer_produit/{id}', 'ClientController@retirer_produit');
+Route::post('/payer', 'ClientController@payer');
+Route::post('/creer_compte', 'ClientController@creer_compte');
+Route::post('/acceder_compte', 'ClientController@acceder_compte');
+
+
+
+Route::get('/voir_pdf/{id}', 'PdfController@voir_pdf');
+
+
+
+
 //page administrateur
 Route::get('/admin', 'AdminController@dashboard');
 Route::get('/commande', 'AdminController@commande');

@@ -21,7 +21,7 @@ class SliderController extends Controller
         # code...
         $this->validate($request, ['description1'=>'required', 
                                     'description2'=>'required',
-                                    'slider_image'=>'image|nullable|max:1999']);
+                                    'slider_image'=>'required']);
 
          if ($request->hasFile('slider_image')) {
             #  nom image avec extension
@@ -70,7 +70,7 @@ class SliderController extends Controller
         return view('admin.editslider')->with('editslider',
         $editslider);
     }
-    /*public function modifierSlider (Request $request)
+    public function modifierSlider (Request $request)
     {
         # modifier un categorie
         $this->validate($request, ['description1'=>'required', 
@@ -97,7 +97,7 @@ class SliderController extends Controller
 
                  if ($slider->slidert_images !='noimage.jpg') {
                      # suprimer l'ancien image
-                     Storage::delete('/public/slider_image'.$slider_image);
+                     //Storage::delete('/public/slider_image'.$slider_image);
                  }
             
                  $slider->slider_image =$fileNameToStore;
@@ -114,12 +114,12 @@ class SliderController extends Controller
 
         if ($suprimer->suprimer_images !='noimage.jpg') {
             # suprimer l'ancien image
-            Storage::delete('/public/storage/suprimer_images'.$slider_image);
+            //Storage::delete('/public/storage/suprimer_images'.$slider_image);
         }
 
         $suprimer->delete();
 
-        return redirect('/produit')->with('status', 'Le slider  à été Suprimer avec succes');
+        return redirect('/slider')->with('status', 'Le slider  à été Suprimer avec succes');
     }
     public function activerslider($id)
     {
@@ -146,5 +146,5 @@ class SliderController extends Controller
         return redirect('/slider')->with('status', 'Le slider à été desactiver  avec succes');
 
 
-    }*/
+    }
 }

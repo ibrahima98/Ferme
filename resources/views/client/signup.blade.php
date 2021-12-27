@@ -30,9 +30,32 @@
 <body>
 	
 	<div class="limiter">
+		
 		<div class="container-login100" style="background-image: url('frontend/login/images/bg-01.jpg');">
 			<div class="wrap-login100">
-				<form class="login100-form validate-form">
+				@if (Session::has('status'))
+                  <div class="alert alert-success">
+                    {{Session::get('status')}}
+                  </div>
+                      
+                  @endif
+                  @if (count($errors)>0)
+                 
+                  <div class="alert alert-danger">
+                    <ul>
+                    
+                      @foreach ($errors->all() as $error)
+                       <li>{{$error}}</li>
+                      @endforeach
+                    
+                    </ul>
+                  </div>
+                      
+                  @endif
+				<form   action="{{url('/creer_compte')}}"   method="POST"      class="login100-form validate-form">
+					
+					{{ csrf_field() }}
+					
 					<span class="login100-form-logo">
 						<i class="zmdi zmdi-landscape"></i>
 					</span>
@@ -42,7 +65,7 @@
 					</span>
 
 					<div class="wrap-input100 validate-input" data-validate = "Enter username">
-						<input class="input100" type="text" name="username" placeholder="Username">
+						<input class="input100" type="text" name="email" placeholder="Username">
 						<span class="focus-input100" data-placeholder="&#xf207;"></span>
 					</div>
 

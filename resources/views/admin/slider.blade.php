@@ -42,14 +42,12 @@
                       
                       
                       <td>
-                             @if ($slider->status=1)
+                             @if ($slider->status==1)
                              <label class="badge badge-success">{{$slider->status}}</label>
                              @else
                              <label class="badge badge-danger">Désactivé</label>
                              @endif
 
-    
-                      
                       </td>
                       <td>
                         <button class="btn btn-outline-primary" 

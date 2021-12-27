@@ -23,7 +23,7 @@ class ProductController extends Controller
         $this->validate($request, ['product_name'=>'required|unique:products', 
                                    'product_price'=>'required' ,
                                    'product_categorie'=>'required' ,
-                                   'product_image'=>'image|nullable|max:1999']);
+                                   'product_image'=>'required']);
         if ($request->hasFile('product_image')) {
             #  nom image avec extension
             $fileNameWithExt = $request->file('product_image')->getClientOriginalName();
@@ -41,7 +41,7 @@ class ProductController extends Controller
             $fileNameToStore='noimage.jpg';
         }
 
-        $produit = new Product();
+        /*$produit = new Product();
        
         $produit->product_name =$request->input('product_name');
         $produit->product_price =$request->input('product_price');
@@ -49,7 +49,7 @@ class ProductController extends Controller
         $produit->product_image =$fileNameToStore;
         $produit->status =1;
 
-        $produit->save();
+        $produit->save();*/
 
         return redirect('/ajouterproduit')->with('status', 'le produit '. $produit->product_name.' à été ajouter avec succes');
      }
@@ -73,6 +73,7 @@ class ProductController extends Controller
     public function modifierProduit (Request $request)
     {
         # modifier un categorie
+        
        
         $this->validate($request, ['product_name'=>'required', 
                                     'product_price'=>'required' ,
@@ -85,20 +86,20 @@ class ProductController extends Controller
               $produit->product_category =$request->input('product_categorie');
 
              if ($request->hasFile('product_image')) {
-               #  nom image avec extension
-               $fileNameWithExt = $request->file('product_image')->getClientOriginalName();
-                # nom image sans extension
+                   #  nom image avec extension
+                 $fileNameWithExt = $request->file('product_image')->getClientOriginalName();
+                   # nom image sans extension
                  $fileName= pathinfo($fileNameWithExt, PATHINFO_FILENAME);
-                 #  image avec extension seulement
+                #  image avec extension seulement
                   $fileExt = $request->file('product_image')->getClientOriginalExtension();
-                 #  file to store
+                   #  file to store
                  $fileNameToStore = $fileName.''.time().'.'.$fileExt;
 
                  $path= $request->file('product_image')->storeas('public/product_images', $fileNameToStore);
 
-                 if ($produit->product_images !='noimage.jpg') {
+                 if ($produit->product_image !='noimage.jpg') {
                      # suprimer l'ancien image
-                     Storage::delete('public/product_images'.$product_image);
+                    // Storage::delete('public/product_images'.$produit->product_image);
                  }
             
                   $produit->product_image =$fileNameToStore;
@@ -108,7 +109,7 @@ class ProductController extends Controller
 
                 return redirect('/produit')->with('status', 'le produit '. $produit->product_name.' à été ajouter avec succes');
     }
-   /* public function suprimerproduit($id)
+    public function suprimerproduit($id)
     {
         # code...
         $suprimer=Product::find($id);
@@ -116,7 +117,7 @@ class ProductController extends Controller
         $suprimer->delete();
 
         return redirect('/categorie')->with('status', 'Le produit '. $suprimer->category_name.' à été Suprimer avec succes');
-    }*/
+    }
     public function activerProduit($id)
     {
         # code...

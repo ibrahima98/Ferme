@@ -3,14 +3,19 @@
 @section('tile')
        Commandes
 @endsection
+{{Form::hidden('', $compteur=1)}}
 @section('contenu')
-
-
-
 
       <div class="card">
         <div class="card-body">
           <h4 class="card-title">Commandes </h4>
+          @if (Session::has('status'))
+          <div class="alert alert-success">
+            {{Session::get('status')}}
+          </div>
+              
+          @endif
+         
           <div class="row">
             <div class="col-12">
               <div class="table-responsive">
@@ -27,22 +32,32 @@
                     </tr>
                   </thead>
                   <tbody>
+                    @foreach ($commandes as $commandes)
                     <tr>
-                        <td>1</td>
-                        <td>Ibrahima Ly</td>
-                        <td>HLM Rufisque</td>
-                        <td>CFA 12.500</td>
+                      <td>{{$compteur}}</td>
+                      <td>{{$commandes->client_name}}</td>
+                      <td>{{$commandes->client_adresse}}</td>
+                      <td>
+                        {{-- @foreach ($commandes->panier->items as $item)
+                          {{--$item['product_name'].', '}}
+                        @endforeach--}}
+                       
+                         
+                        </td>
+                      <td>
+                        <label class="badge badge-info">{{$commandes->payement_id}}</label>
+                      </td>
+                      <td>
+                          <button class="btn btn-outline-primary" onclick="window
+                          .location='{{url('/voir_pdf/'.$commandes->id)}}'">View</button>
                         
                         
-                        <td>
-                          <label class="badge badge-info">35</label>
-                        </td>
-                        <td>
-                            <button class="btn btn-outline-primary">VIEW</button>
-                          
-                        </td>
-                    </tr>
-                 
+                      </td>
+                  </tr>
+                  {{Form::hidden('', $compteur+=1)}}
+              
+                  @endforeach
+           
                   </tbody>
                 </table>
               </div>
